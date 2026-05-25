@@ -44,13 +44,11 @@ public class ProductService {
     }
 
     @Cacheable(cacheNames = "products", key = "#id")
-    public Product getProdById(int id) {
-        return productRepo.findById(id).orElse(null);
+    public Product getProdByName(String name) {
+        return productRepo.findByName(name).orElse(null);
     }
 
-    public Product getProdByName(String name) {
-        return productRepo.findByName(name);
-    }
+
 
     @CacheEvict(cacheNames = "products", key = "#id")
     public void deleteProdById(int id) {

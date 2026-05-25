@@ -39,16 +39,16 @@ public class ProductController {
         return new ResponseEntity<>(productDTOS,HttpStatus.OK);
     }
 
-    @GetMapping("user/product/{id}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable int id){
-        Product product =  productService.getProdById(id);
+    @GetMapping("user/product")
+    public ResponseEntity<ProductDTO> getProductById(@RequestParam String name){
+        Product product =  productService.getProdByName(name);
         ProductDTO dto = null;
         if(product != null) {
              dto = mapper.productDTO(product);
             return new ResponseEntity<>(dto, HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
