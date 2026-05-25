@@ -30,10 +30,10 @@ public class CartService {
 
 
     @Transactional
-    public Cart addToCart(Integer productId, UUID custId){
+    public Cart addToCart(String name, UUID custId){
 
         Cart cart = getCartByCustomerId(custId);
-        Product product = productService.getProdById(productId);
+        Product product = productService.getProdByName(name);
 
         if (product.getStock() <= 0) {
             throw new RuntimeException("Out of stock");
@@ -44,9 +44,9 @@ public class CartService {
     }
 
     @Transactional
-    public Cart removeFromCart(Integer productId, UUID custId){
+    public Cart removeFromCart(String name, UUID custId){
         Cart cart = getCartByCustomerId(custId);
-        Product product = productService.getProdById(productId);
+        Product product = productService.getProdByName(name);
         cart.getProductList().remove(product);
         product.setStock(product.getStock() + 1);
 

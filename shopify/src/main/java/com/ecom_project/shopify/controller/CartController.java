@@ -34,8 +34,8 @@ public class CartController {
 
     // add item
     @PostMapping("user/cart/addItem/{productId}/{custId}")
-    public ResponseEntity<Cart> addItem(@PathVariable Integer productId, @PathVariable UUID custId){
-        cart = cartService.addToCart(productId,custId);
+    public ResponseEntity<Cart> addItem(@PathVariable String name, @PathVariable UUID custId){
+        cart = cartService.addToCart(name,custId);
         if(cart != null){
             return new ResponseEntity<>(cart, HttpStatus.OK);
         }
@@ -47,8 +47,8 @@ public class CartController {
 
     // remove item
     @DeleteMapping("user/cart/removeItem/{productId}/{custId}")
-    public ResponseEntity<Cart> removeItem(@PathVariable Integer productId, @PathVariable UUID custId){
-        cart = cartService.removeFromCart(productId,custId);
+    public ResponseEntity<Cart> removeItem(@PathVariable String name, @PathVariable UUID custId){
+        cart = cartService.removeFromCart(name,custId);
         if(cart != null){
             return new ResponseEntity<>(cart, HttpStatus.OK);
         }
