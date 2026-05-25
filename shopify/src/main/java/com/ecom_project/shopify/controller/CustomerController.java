@@ -27,6 +27,7 @@ public class CustomerController {
     public ResponseEntity<List<CustomerDTO>> getCustomers(){
         List<CustomerDTO> dtoList = customerService.getAllCustomers();
 
+
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
@@ -35,7 +36,8 @@ public class CustomerController {
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable UUID id){
         CustomerDTO customerDTO = customerService.getCustomerById(id);
 
-        if(customerDTO != null) {
+
+        if(customerDTO != null){
             return new ResponseEntity<>(customerDTO,HttpStatus.OK);
         }
         else{
