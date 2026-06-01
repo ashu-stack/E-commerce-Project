@@ -78,15 +78,13 @@ public class CustomerService  {
         return dto;
     }
 
+    @Transactional
     public void  addCustomer(Customer customer) {
-
-        customer.setOrdersList(new ArrayList<>());
-        customer.setPayments(new ArrayList<>());
 
         customerRepo.save(customer);
 
-        Customer customer1 = (Customer) customerRepo.findByEmail(customer.getEmail()).orElse(null);
-        Cart cart = Cart.builder().customerId(customer1.getId()).modeOfPayment("COD").productList(new ArrayList<>()).build();
+        //Customer customer1 = (Customer) customerRepo.findByEmail(customer.getEmail()).orElse(null);
+        Cart cart = Cart.builder().customerId(customer.getId()).modeOfPayment("COD").customer(customer).build();
         cartService.createCartForCustomer(cart);
 
     }

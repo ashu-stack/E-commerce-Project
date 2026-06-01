@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -37,11 +38,11 @@ public class Customer {
 
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.REMOVE)
-    private List<Orders> ordersList;
+    private List<Orders> ordersList = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.REMOVE)
-    private List<Payment> payments;
+    private List<Payment> payments = new ArrayList<>();
 
     @OneToOne
     private Cart cart;
