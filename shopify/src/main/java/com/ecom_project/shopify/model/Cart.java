@@ -1,5 +1,6 @@
 package com.ecom_project.shopify.model;
 
+import com.ecom_project.shopify.dto.CustomerDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,11 +22,13 @@ public class Cart {
     @Column(nullable = false)
     private UUID customerId;
 
-    @OneToMany
+    @ManyToMany
     private List<Product> productList;
     @Column(nullable = false)
     private String modeOfPayment;
 
     @OneToOne(mappedBy = "cart")
     private Customer customer;
+
+    private CustomerDTO customerDTO;
 }
