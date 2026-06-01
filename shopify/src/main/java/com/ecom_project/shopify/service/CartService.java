@@ -30,16 +30,16 @@ public class CartService {
 
 
     @Transactional
-    public Cart addToCart(String name, UUID custId){
+    public Cart addToCart(String name, UUID custId, int quantity){
 
         Cart cart = getCartByCustomerId(custId);
         Product product = productService.getProdByName(name);
 
-        if (product.getStock() <= 0) {
+        if (product.getStock() <= quantity) {
             throw new RuntimeException("Out of stock");
         }
         cart.getProductList().add(product);
-        product.setStock(product.getStock() - 1);
+        product.setStock(product.getStock() - quantity);
         return cart;
     }
 
