@@ -43,7 +43,7 @@ public class ProductService {
         productRepo.save(product);
     }
 
-    @Cacheable(cacheNames = "products", key = "#id")
+    @Cacheable(cacheNames = "products", key = "#name")
     public Product getProdByName(String name) {
         return productRepo.findByName(name).orElse(null);
     }

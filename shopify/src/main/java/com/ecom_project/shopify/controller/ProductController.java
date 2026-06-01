@@ -39,7 +39,7 @@ public class ProductController {
         return new ResponseEntity<>(productDTOS,HttpStatus.OK);
     }
 
-    @GetMapping("user/product")
+    @GetMapping("/user/product")
     public ResponseEntity<ProductDTO> getProductById(@RequestParam String name){
         Product product =  productService.getProdByName(name);
         ProductDTO dto = null;
