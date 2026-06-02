@@ -20,6 +20,9 @@ public class CartService {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    ProductRepo productRepo;
+
     public Cart getCartByCustomerId(UUID custId) {
         return cartRepo.findByCustomerId(custId);
     }
@@ -35,11 +38,13 @@ public class CartService {
         Cart cart = getCartByCustomerId(custId);
         Product product = productService.getProdByName(name);
 
-        if (product.getStock() <= quantity) {
+        if (product.getStock() < quantity) {
             throw new RuntimeException("Out of stock");
         }
         cart.getProductList().add(product);
         product.setStock(product.getStock() - quantity);
+        productRepo.save(product);
+        cartRepo.save(cart);
         return cart;
     }
 
@@ -47,8 +52,10 @@ public class CartService {
     public Cart removeFromCart(String name, UUID custId){
         Cart cart = getCartByCustomerId(custId);
         Product product = productService.getProdByName(name);
-        cart.getProductList().remove(product);
+        cart.getProductList().removeIf(p -> p.getId().equals(product.getId()));
         product.setStock(product.getStock() + 1);
+        productRepo.save(product);
+        cartRepo.save(cart);
 
         return cart;
     }
